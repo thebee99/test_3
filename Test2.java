@@ -1,14 +1,5 @@
 package edu.handong.csee.java.hw3;
 
-
-/**
-
-This class represents a calculator that can perform various computations using different engines.
-It has a main method to run the program and a run method to execute the computations based on the input provided.
-The computations available are: LCM, GCD, SQRT, FACTORIAL, FIBONACCI, MAX, MIN, CUBEVOL, and SPHEREVOL.
-It takes a command line argument for the desired engine, and the input values for the computation.
-*/
-
 import edu.handong.csee.java.hw3.engines.Computable;
 import edu.handong.csee.java.hw3.engines.CubeVolEngine;
 import edu.handong.csee.java.hw3.engines.FactorialEngine;
@@ -19,17 +10,10 @@ import edu.handong.csee.java.hw3.engines.MaxEngine;
 import edu.handong.csee.java.hw3.engines.MinEngine;
 import edu.handong.csee.java.hw3.engines.SQRTEngine;
 import edu.handong.csee.java.hw3.engines.SphereVolEngine;
-import edu.handong.csee.java.hw3.exception.InvalidCommandException;
-import edu.handong.csee.java.hw3.exception.OneInputException;
+import edu.handong.csee.java.hw3.exceptions.InvalidCommandException;
+import edu.handong.csee.java.hw3.exceptions.OneInputException;
 
 public class Calculator {
-
-/**
- * This is the main method which runs the calculator program.
- * It creates a Calculator object and calls the run method.
- * 
- * @param args the command line arguments, with the first argument being the engine option, and the rest being the input values.
- */
 
     public static void main(String[] args) {
 
@@ -43,31 +27,16 @@ public class Calculator {
         }
     }
 
-/**
- * This method executes the computation based on the input provided.
- * It first checks if there is any input provided, and prints an error message if there isn't.
- * It then identifies the engine option provided, creates the corresponding engine object, and calls the compute method.
- * Finally, it prints the result of the computation.
- * 
- * @param args the command line arguments, with the first argument being the engine option, and the rest being the input values.
- * @throws OneInputException
- */
-
-    public void run(String[] args) throws InvalidCommandException, OneInputException{
-        // try{
+    public void run(String[] args) throws InvalidCommandException, OneInputException {
         if (args.length == 0) {
             throw new InvalidCommandException(" ");
         }
-        // }
-        // catch(Exception e){
-        //     System.out.println(e.getMessage()); 
-        // } 
 
         String engineName = args[0].toUpperCase();
 
-        Computable engine =null;
+        Computable engine = null;
 
-        switch(engineName) {
+        switch (engineName) {
             case "LCM":
                 engine = new LCMEngine();
                 break;
@@ -97,23 +66,18 @@ public class Calculator {
                 break;
             default:
                 throw new InvalidCommandException(engineName);
-         
+
         }
         if (args.length <= 1) {
             throw new InvalidCommandException(" ");
 
         }
 
-        // engine.setInput(args);
-        // engine.compute();
         String[] inputs = new String[args.length - 1];
         System.arraycopy(args, 1, inputs, 0, inputs.length);
         engine.setInput(inputs);
         engine.compute();
 
-        System.out.println("The result of " +  engineName + " is " + engine.getResult() + ".");
-
+        System.out.println("The result of " + engineName + " is " + engine.getResult() + ".");
     }
-
-
 }
